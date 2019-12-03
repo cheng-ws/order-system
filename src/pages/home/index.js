@@ -26,7 +26,7 @@ class Home extends Component {
         // console.log(this.props.data.user);
         return (
             <div className="home-wrap">
-                欢迎进行体育馆预约
+                欢迎进行预约
                  
             </div>
         )

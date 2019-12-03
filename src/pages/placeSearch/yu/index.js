@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { List, Avatar, Tag, Button, Modal, Card, Form, DatePicker, Divider, message } from 'antd';
+import React, { Component,Fragment } from 'react'
+import { Avatar, Tag, Button, Modal, Card, Form, DatePicker, Divider, message,Row,Col } from 'antd';
 import moment from 'moment'
 import { connect } from 'dva'
 
@@ -24,7 +24,7 @@ class PlaceDetail extends Component {
         super(props);
         this.state = {
             isModalVisible: false,
-            color: 'orange', 
+            
             time: moment().format('YYYY-MM-DD'),          
         };
 
@@ -122,6 +122,24 @@ class PlaceDetail extends Component {
             time: dateString
         })
     }
+    renderCard = (data)=>{
+        if(data){
+            return data.map(item=>{
+               return  <Card hoverable key={item.id} style={{float:'left',width:300,height:200,marginLeft:40,marginTop:20}}   title={<Fragment>
+                   <Avatar style={{ backgroundColor: 'orange', verticalAlign: 'middle' }} size="large">
+                   {item.place_id} </Avatar> <Tag color="#2db7f5">{item.time.split(' ')[0]+ ' '+item.title}</Tag> </Fragment>}>
+                       <Row >
+                       <Col> {item.description}</Col>
+                       </Row><Row>
+                       <Col style={{}}>{item.time<moment().format('YYYY-MM-DD HH:mm:ss')?<Tag color='gray' style={{marginTop:'20px'}} title="已过期，不可预约">已过期，不可预约</Tag>:
+                              item.status === "1" ? <Tag color="red" style={{ marginTop: '20px' }} title="已被预约">已被预约</Tag> : <Button type="primary" size="small" style={{ marginTop: '20px' }} title="可预约" onClick={() => this.handleYu(item)}>可预约</Button>} 
+                       </Col>
+                       </Row></Card>
+            }) 
+        }
+        
+        
+    }
     render() {
         const list = this.props.user.list;
         return (
@@ -135,7 +153,9 @@ class PlaceDetail extends Component {
                     </FormItem>
                 </Form>
                 <Divider type="horizontal" />
-                <List
+                  {this.renderCard(list)} 
+                
+                {/* <List
                     style={{ backgroundColor: '#fff' }}
                     itemLayout="vertical"
                     size="large"
@@ -166,9 +186,9 @@ class PlaceDetail extends Component {
                             />
 
                             {/* {item.content} */}
-                        </List.Item>
+                        {/* </List.Item>
                     )}
-                />
+                /> */}  
             </Card>
 
         )

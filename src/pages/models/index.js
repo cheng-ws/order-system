@@ -1,4 +1,5 @@
 import linkUrl from '../services/index';
+import {message} from 'antd'
 
 export default {
   namespace: 'user',
@@ -35,6 +36,8 @@ export default {
     },
     *getPlace({ payload }, { call, put }) {
       const response = yield call(linkUrl.placeCheck, payload);
+      console.log(response.data);
+      
       if (response.data.code === 0) {
         yield put({
           type: 'savePlace',
@@ -45,6 +48,7 @@ export default {
           type: 'savePlace',
           payload: response.data.list
         })
+        message.warning(response.data.msg)
       }
     },
     *upStatus({ payload }, { call, put }) {

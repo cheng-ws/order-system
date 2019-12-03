@@ -107,7 +107,7 @@ class CustomerPage extends Component {
         const { list } = this.props.user;
         return (
             <div>
-                <Card title="我的预约">
+                <Card  title="我的预约">
                     <Form layout="inline" >
                         <FormItem label="场地名称" >
                             <Input type="text" placeholder="请输入场地名称" onChange={this.onPlaceName}/>

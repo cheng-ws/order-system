@@ -41,8 +41,7 @@ class Login extends Component {
         
          
         return (
-             
-                    <Card title="个人信息" className="login_card">
+                    <Card title="个人登录信息修改" style={{width:400}} hoverable className="login_card">
                         <Form style={{ width: 300 }} className="login_form">
                             <FormItem label="用户名：">
                                 {
